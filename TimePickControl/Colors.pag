@@ -1,0 +1,16 @@
+VERSION 5.00
+Begin VB.PropertyPage Colors 
+   Caption         =   "Colors"
+   ClientHeight    =   2580
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4605
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   2580
+   ScaleWidth      =   4605
+End
+Attribute VB_Name = "Colors"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True

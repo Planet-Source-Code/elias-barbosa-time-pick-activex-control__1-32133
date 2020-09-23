@@ -1,0 +1,173 @@
+VERSION 5.00
+Begin VB.PropertyPage General 
+   Caption         =   "General"
+   ClientHeight    =   3495
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6255
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3495
+   ScaleWidth      =   6255
+   Begin VB.ComboBox Combo1 
+      Height          =   315
+      Left            =   1560
+      TabIndex        =   9
+      Text            =   "AM"
+      Top             =   1920
+      Width           =   615
+   End
+   Begin VB.TextBox txtMinuteValue 
+      ForeColor       =   &H00000080&
+      Height          =   285
+      Left            =   1560
+      TabIndex        =   6
+      Top             =   1560
+      Width           =   2700
+   End
+   Begin VB.TextBox txtHourValue 
+      ForeColor       =   &H00000080&
+      Height          =   285
+      Left            =   1560
+      TabIndex        =   4
+      Top             =   1200
+      Width           =   2700
+   End
+   Begin VB.TextBox txtValue 
+      Enabled         =   0   'False
+      ForeColor       =   &H00000080&
+      Height          =   285
+      Left            =   1560
+      Locked          =   -1  'True
+      TabIndex        =   2
+      Top             =   840
+      Width           =   2700
+   End
+   Begin VB.CheckBox chkEnabled 
+      Caption         =   "Enabled"
+      ForeColor       =   &H80000001&
+      Height          =   285
+      Left            =   3240
+      TabIndex        =   0
+      Top             =   1920
+      Width           =   1020
+   End
+   Begin VB.Label Label2 
+      Caption         =   "AM/PM Value:"
+      ForeColor       =   &H80000001&
+      Height          =   240
+      Left            =   360
+      TabIndex        =   8
+      Top             =   1920
+      Width           =   1125
+   End
+   Begin VB.Label Label1 
+      BackStyle       =   0  'Transparent
+      Caption         =   "Please, mosify the options below to costumize your Time Pick control:"
+      ForeColor       =   &H80000001&
+      Height          =   255
+      Left            =   360
+      TabIndex        =   7
+      Top             =   360
+      Width           =   5415
+   End
+   Begin VB.Label lblMinuteValue 
+      Caption         =   "Minutes Value:"
+      ForeColor       =   &H80000001&
+      Height          =   240
+      Left            =   360
+      TabIndex        =   5
+      Top             =   1560
+      Width           =   1125
+   End
+   Begin VB.Label lblHourValue 
+      Caption         =   "Hours Value:"
+      ForeColor       =   &H80000001&
+      Height          =   240
+      Left            =   360
+      TabIndex        =   3
+      Top             =   1200
+      Width           =   1125
+   End
+   Begin VB.Label lblValue 
+      BackStyle       =   0  'Transparent
+      Caption         =   "Value:"
+      ForeColor       =   &H80000001&
+      Height          =   240
+      Left            =   360
+      TabIndex        =   1
+      Top             =   840
+      Width           =   645
+   End
+End
+Attribute VB_Name = "General"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Private Sub PropertyPage_Initialize()
+    With Combo1
+        .AddItem ("AM")
+        .AddItem ("PM")
+    End With
+    
+End Sub
+
+Private Sub Combo1_Click()
+    Changed = True
+    
+End Sub
+
+Private Sub txtMinuteValue_Change()
+    Changed = True
+    
+End Sub
+
+Private Sub txtHourValue_Change()
+    Changed = True
+    
+End Sub
+
+Private Sub txtValue_Change()
+    Changed = True
+    
+End Sub
+
+Private Sub chkAMPM_Visible_Click()
+    Changed = True
+    
+End Sub
+
+Private Sub chkEnabled_Click()
+    Changed = True
+    
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+    SelectedControls(0).MinuteValue = txtMinuteValue.Text
+    SelectedControls(0).HourValue = txtHourValue.Text
+    SelectedControls(0).Enabled = (chkEnabled.Value = vbChecked)
+    
+    If (Combo1.Text = "AM") Then
+        SelectedControls(0).AMPMValue = 0
+    Else
+        SelectedControls(0).AMPMValue = 1
+    End If
+    
+    'This line should be at the end.
+    SelectedControls(0).Value = txtValue.Text
+    
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+    txtMinuteValue.Text = SelectedControls(0).MinuteValue
+    txtHourValue.Text = SelectedControls(0).HourValue
+    txtValue.Text = SelectedControls(0).Value
+    chkEnabled.Value = (SelectedControls(0).Enabled And vbChecked)
+    
+    If (SelectedControls(0).AMPMValue = 0) Then
+        Combo1.Text = "AM"
+    Else
+        Combo1.Text = "PM"
+    End If
+    
+End Sub
